@@ -33,7 +33,6 @@
 
   .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
   .header-title { font-size: 14px; font-weight: 500; }
-  .header-right { display: flex; align-items: center; gap: 10px; }
   .sync-status { font-size: 11px; color: var(--faint); }
   .sync-status.saving { color: var(--amber); }
   .sync-status.error { color: var(--danger); }
@@ -45,14 +44,14 @@
   .msg.success { background: var(--success-bg); color: var(--success); }
   .msg.error { background: var(--danger-bg); color: var(--danger); }
 
-  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; }
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
   .stat-card { background: var(--surface); border-radius: 8px; padding: 12px 14px; border: 0.5px solid var(--border); }
   .stat-label { font-size: 11px; color: var(--faint); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 5px; }
-  .stat-val { font-size: 24px; font-weight: 500; }
+  .stat-val { font-size: 22px; font-weight: 500; }
 
-  .paper-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 6px; margin-bottom: 20px; padding: 10px 14px; background: var(--purple-bg); border: 0.5px solid var(--purple-border); border-radius: 8px; }
+  .paper-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 20px; padding: 10px 14px; background: var(--purple-bg); border: 0.5px solid var(--purple-border); border-radius: 8px; }
   .paper-stat-label { font-size: 10px; color: var(--purple); opacity: 0.85; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 3px; }
-  .paper-stat-val { font-size: 18px; font-weight: 500; color: var(--purple); }
+  .paper-stat-val { font-size: 16px; font-weight: 500; color: var(--purple); }
 
   .tabs-row { display: flex; align-items: center; justify-content: space-between; border-bottom: 0.5px solid var(--border); margin-bottom: 0; }
   .tabs { display: flex; }
@@ -65,18 +64,23 @@
   .trade-list { border: 0.5px solid var(--border); border-top: none; border-radius: 0 0 10px 10px; overflow: hidden; margin-bottom: 14px; }
   .empty { padding: 2.5rem; text-align: center; color: var(--faint); font-size: 13px; }
 
+  /* Trade row — desktop: single line, mobile: two lines */
   .trade-row { border-bottom: 0.5px solid var(--border); }
   .trade-row:last-child { border-bottom: none; }
   .trade-row-main { padding: 10px 12px; cursor: pointer; display: flex; align-items: center; gap: 8px; }
   .trade-row-main:hover, .trade-row-main.expanded { background: var(--surface-hover); }
-  .trade-left { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
-  .trade-center { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; flex-wrap: wrap; }
-  .trade-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; margin-left: auto; }
-  .trade-ticker { font-weight: 500; font-size: 15px; }
-  .trade-meta { font-size: 14px; color: var(--muted); white-space: nowrap; }
-  .trade-premium { font-size: 14px; color: var(--text); white-space: nowrap; }
+
+  .trade-left { flex-shrink: 0; }
+  .trade-body { flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px; }
+  .trade-right { flex-shrink: 0; display: flex; align-items: center; gap: 6px; margin-left: auto; }
+
+  .trade-ticker { font-weight: 500; font-size: 15px; white-space: nowrap; }
+  .trade-strike { font-size: 14px; color: var(--muted); white-space: nowrap; }
+  .trade-expiry { font-size: 14px; color: var(--muted); white-space: nowrap; }
   .trade-dte { font-size: 13px; white-space: nowrap; }
+  .trade-premium { font-size: 14px; color: var(--text); white-space: nowrap; }
   .trade-pnl { font-size: 14px; font-weight: 500; white-space: nowrap; }
+
   .trade-detail { margin: 0 12px 10px; padding-top: 10px; border-top: 0.5px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; gap: 4px 20px; font-size: 13px; color: var(--muted); }
   .trade-detail .full { grid-column: 1 / -1; }
 
@@ -87,13 +91,14 @@
   .badge-boughtback { background: var(--amber-bg); color: var(--amber); }
   .badge-assigned { background: var(--red-bg); color: var(--red); }
 
-  .close-btn { background: none; border: 0.5px solid var(--border-mid); border-radius: 4px; padding: 2px 8px; color: var(--muted); font-size: 11px; white-space: nowrap; flex-shrink: 0; }
+  .close-btn { background: none; border: 0.5px solid var(--border-mid); border-radius: 4px; padding: 2px 8px; color: var(--muted); font-size: 11px; white-space: nowrap; }
   .close-btn:hover { border-color: var(--amber); color: var(--amber); }
+  .close-spacer { display: inline-block; width: 43px; }
 
-  .trash-btn { background: none; border: none; color: var(--faint); padding: 2px 4px; border-radius: 4px; display: flex; align-items: center; flex-shrink: 0; }
+  .trash-btn { background: none; border: none; color: var(--faint); padding: 2px 4px; border-radius: 4px; display: flex; align-items: center; }
   .trash-btn:hover { color: var(--danger); }
 
-  .confirm-delete { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; flex-shrink: 0; }
+  .confirm-delete { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; }
   .confirm-label { color: var(--muted); white-space: nowrap; }
 
   .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); display: flex; align-items: center; justify-content: center; z-index: 100; padding: 20px; }
@@ -105,7 +110,6 @@
   .field-label { font-size: 12px; color: var(--muted); display: block; margin-bottom: 4px; }
   .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 4px; }
 
-  /* Export moved to bottom */
   .export-section { margin-top: 16px; border-top: 0.5px solid var(--border); padding-top: 14px; }
   .export-toggle { background: none; border: none; color: var(--faint); font-size: 12px; padding: 0; display: flex; align-items: center; gap: 5px; }
   .export-toggle:hover { color: var(--muted); }
@@ -123,11 +127,20 @@
   .screen-sub { color: var(--faint); font-size: 12px; font-family: monospace; }
   .screen-note { color: var(--faint); font-size: 12px; }
 
-  @media (max-width: 480px) {
+  /* Mobile: two-line trade rows, 2-col stats */
+  @media (max-width: 520px) {
     .stats-grid { grid-template-columns: 1fr 1fr; }
     .paper-stats { grid-template-columns: 1fr 1fr; }
     .trade-detail { grid-template-columns: 1fr; }
-    .trade-meta { font-size: 13px; }
+
+    .trade-row-main { flex-wrap: wrap; padding: 10px 10px; gap: 4px; }
+    .trade-left { order: 1; }
+    .trade-body { order: 2; flex: 1; min-width: 0; }
+    .trade-right { order: 3; width: 100%; margin-left: 0; padding-left: calc(43px + 8px); /* align with body */ }
+
+    .trade-body { flex-wrap: wrap; row-gap: 2px; }
+    .trade-row-line1 { display: flex; align-items: center; gap: 8px; width: 100%; }
+    .trade-row-line2 { display: flex; align-items: center; gap: 8px; width: 100%; }
   }
 </style>
 </head>
@@ -153,6 +166,8 @@ let expiredQueue = [];
 let expiredIdx = 0;
 let confirmDeleteId = null;
 let batchStatus = null;
+let isMobile = window.innerWidth <= 520;
+window.addEventListener("resize", () => { isMobile = window.innerWidth <= 520; });
 
 async function loadBin() {
   const r = await fetch(BIN_URL + "/latest", { headers: { "X-Access-Key": API_KEY } });
@@ -209,8 +224,7 @@ function parseClose(tokens) {
   let rest = tokens.slice(4);
   if (/^at$/i.test(priceStr)) {
     if (!tokens[4]) return { error: "Missing price after 'at'" };
-    priceStr = tokens[4];
-    rest = tokens.slice(5);
+    priceStr = tokens[4]; rest = tokens.slice(5);
   }
   const closePrice = parseFloat(priceStr.replace(/[$@]/g, ""));
   if (isNaN(closePrice) || closePrice < 0) return { error: `Bad price: ${priceStr}` };
@@ -249,6 +263,8 @@ const isExpiredTrade = t => t.status === "OPEN" && dte(t.expiry) !== null && dte
 const fmt$ = n => n == null || isNaN(n) ? "—" : (n >= 0 ? "+" : "-") + "$" + Math.abs(n).toFixed(0);
 const fmtP = n => n == null || isNaN(n) ? "—" : "$" + Number(n).toFixed(2);
 const mmdd = s => s ? s.slice(5).replace("-", "/") : "";
+// Short display date: YYYY-MM-DD → MM/DD
+const shortDate = s => s ? s.slice(5).replace("-", "/") : "";
 
 function badgeHTML(status, paper) {
   const map = { OPEN: "open", EXPIRED: "expired", "BOUGHT BACK": "boughtback", ASSIGNED: "assigned" };
@@ -310,11 +326,11 @@ async function handleLog() {
     }
     batchStatus = null;
     await persist(current);
-    const parts2 = [];
-    if (added) parts2.push(`${added} logged`);
-    if (closed) parts2.push(`${closed} closed`);
-    if (failed.length) parts2.push(`${failed.length} failed`);
-    showMsg(added === 0 && closed === 0 ? "error" : "success", parts2.join(" · "));
+    const s = [];
+    if (added) s.push(`${added} logged`);
+    if (closed) s.push(`${closed} closed`);
+    if (failed.length) s.push(`${failed.length} failed`);
+    showMsg(added === 0 && closed === 0 ? "error" : "success", s.join(" · "));
     if (added) { tab = "open"; render(); }
   }
 }
@@ -325,15 +341,12 @@ async function processSingle(raw) {
     const result = parseClose(tokens.slice(1));
     if (result.error) { showMsg("error", result.error); return; }
     const match = trades.find(t =>
-      t.status === "OPEN" &&
-      t.ticker === result.ticker &&
-      Math.abs(t.strike - result.strike) < 0.01 &&
-      t.expiry === result.expiry
+      t.status === "OPEN" && t.ticker === result.ticker &&
+      Math.abs(t.strike - result.strike) < 0.01 && t.expiry === result.expiry
     );
-    if (!match) { showMsg("error", `No open position found: ${result.ticker} $${result.strike} ${result.expiry}`); return; }
+    if (!match) { showMsg("error", `No open position: ${result.ticker} $${result.strike} ${result.expiry}`); return; }
     const pnl = (match.premium - result.closePrice) * match.contracts * 100;
-    const next = trades.map(t => t.id === match.id ? { ...t, status: result.status, closePrice: result.closePrice, pnl, closeDate: today() } : t);
-    await persist(next);
+    await persist(trades.map(t => t.id === match.id ? { ...t, status: result.status, closePrice: result.closePrice, pnl, closeDate: today() } : t));
     showMsg("success", `Closed ${match.ticker} · ${result.status} · P&L: ${fmt$(pnl)}`);
   } else {
     const src = /^OPEN$/i.test(tokens[0]) ? tokens.slice(1).join(" ") : raw;
@@ -341,7 +354,7 @@ async function processSingle(raw) {
     if (result.error) { showMsg("error", result.error); return; }
     const t = makeTrade(result);
     await persist([t, ...trades]);
-    showMsg("success", `Logged: ${t.ticker} $${t.strike} · ${t.expiry} · ${fmtP(t.premium)}/share · ${t.contracts} contract${t.contracts>1?"s":""}${t.paper?" (paper)":""}`);
+    showMsg("success", `Logged: ${t.ticker} $${t.strike} · ${shortDate(t.expiry)} · ${fmtP(t.premium)}${t.paper?" (paper)":""}`);
     tab = "open"; render();
   }
 }
@@ -352,31 +365,22 @@ function processPart(raw, currentTrades) {
     const result = parseClose(tokens.slice(1));
     if (result.error) return { error: result.error };
     const match = currentTrades.find(t =>
-      t.status === "OPEN" &&
-      t.ticker === result.ticker &&
-      Math.abs(t.strike - result.strike) < 0.01 &&
-      t.expiry === result.expiry
+      t.status === "OPEN" && t.ticker === result.ticker &&
+      Math.abs(t.strike - result.strike) < 0.01 && t.expiry === result.expiry
     );
     if (!match) return { error: `No open: ${result.ticker}` };
     const pnl = (match.premium - result.closePrice) * match.contracts * 100;
-    const next = currentTrades.map(t => t.id === match.id ? { ...t, status: result.status, closePrice: result.closePrice, pnl, closeDate: today() } : t);
-    return { trades: next, type: "close" };
+    return { trades: currentTrades.map(t => t.id === match.id ? { ...t, status: result.status, closePrice: result.closePrice, pnl, closeDate: today() } : t), type: "close" };
   } else {
     const src = /^OPEN$/i.test(tokens[0]) ? tokens.slice(1).join(" ") : raw;
     const result = parseTrade(src);
     if (result.error) return { error: result.error };
-    const t = makeTrade(result, Date.now() + Math.random());
-    return { trades: [t, ...currentTrades], type: "add" };
+    return { trades: [makeTrade(result, Date.now() + Math.random()), ...currentTrades], type: "add" };
   }
 }
 
 function makeTrade(result, idOffset) {
-  return {
-    id: String(Date.now() + (idOffset || 0)),
-    ticker: result.ticker, strike: result.strike, expiry: result.expiry,
-    premium: result.premium, contracts: result.contracts, paper: result.paper,
-    status: "OPEN", openDate: today(), closePrice: null, pnl: null, note: ""
-  };
+  return { id: String(Date.now() + (idOffset||0)), ticker: result.ticker, strike: result.strike, expiry: result.expiry, premium: result.premium, contracts: result.contracts, paper: result.paper, status: "OPEN", openDate: today(), closePrice: null, pnl: null, note: "" };
 }
 
 async function handleDelete(id) {
@@ -391,8 +395,8 @@ function handleCloseConfirm() {
   const t = closeTarget;
   const cp = parseFloat(document.getElementById("close-price")?.value);
   if (isNaN(cp) || cp < 0) { document.getElementById("close-error").textContent = "Enter a valid close price (0 for worthless)"; return; }
-  const contractsVal = document.getElementById("close-contracts")?.value?.trim();
-  const closingC = contractsVal ? parseInt(contractsVal) : t.contracts;
+  const cval = document.getElementById("close-contracts")?.value?.trim();
+  const closingC = cval ? parseInt(cval) : t.contracts;
   if (isNaN(closingC) || closingC < 1 || closingC > t.contracts) { document.getElementById("close-error").textContent = `Contracts must be 1–${t.contracts}`; return; }
   const rollStr = document.getElementById("close-roll")?.value?.trim();
   const roll = rollStr ? parseRoll(rollStr) : null;
@@ -400,10 +404,8 @@ function handleCloseConfirm() {
   const pnl = (t.premium - cp) * closingC * 100;
   let next = trades;
   if (closingC < t.contracts) {
-    const closed = { ...t, id: String(Date.now()), contracts: closingC, status: "BOUGHT BACK", closePrice: cp, pnl, closeDate: today() };
-    const remaining = { ...t, contracts: t.contracts - closingC };
-    next = next.map(x => x.id === t.id ? remaining : x);
-    next = [closed, ...next];
+    next = next.map(x => x.id === t.id ? { ...x, contracts: t.contracts - closingC } : x);
+    next = [{ ...t, id: String(Date.now()), contracts: closingC, status: "BOUGHT BACK", closePrice: cp, pnl, closeDate: today() }, ...next];
   } else {
     next = next.map(x => x.id === t.id ? { ...x, status: "BOUGHT BACK", closePrice: cp, pnl, closeDate: today() } : x);
   }
@@ -412,13 +414,12 @@ function handleCloseConfirm() {
     next = [{ id: String(Date.now()+1), ticker: t.ticker, strike: roll.strike, expiry: roll.expiry, premium: roll.premium, contracts: rc, paper: t.paper, status: "OPEN", openDate: today(), closePrice: null, pnl: null, note: `rolled from $${t.strike} ${t.expiry}` }, ...next];
   }
   persist(next);
-  showMsg("success", `Closed ${t.ticker}${roll?` · rolled to $${roll.strike} ${roll.expiry}`:""} · P&L: ${fmt$(pnl)}`);
+  showMsg("success", `Closed ${t.ticker}${roll?` · rolled to $${roll.strike} ${shortDate(roll.expiry)}`:""} · P&L: ${fmt$(pnl)}`);
   closeTarget = null; render();
 }
 
 function handleExpiryConfirm(worthless) {
-  const t = expiredQueue[expiredIdx];
-  if (!t) return;
+  const t = expiredQueue[expiredIdx]; if (!t) return;
   let cp = 0;
   if (!worthless) {
     cp = parseFloat(document.getElementById("expiry-price")?.value);
@@ -426,8 +427,7 @@ function handleExpiryConfirm(worthless) {
   }
   const pnl = (t.premium - cp) * t.contracts * 100;
   const status = cp === 0 ? "EXPIRED" : "BOUGHT BACK";
-  const next = trades.map(x => x.id === t.id ? { ...x, status, closePrice: cp, pnl, closeDate: today() } : x);
-  persist(next);
+  persist(trades.map(x => x.id === t.id ? { ...x, status, closePrice: cp, pnl, closeDate: today() } : x));
   showMsg("success", `${t.ticker} marked ${status} · P&L: ${fmt$(pnl)}`);
   expiredIdx++; render();
 }
@@ -441,32 +441,88 @@ function downloadTxt() {
 async function refreshExport() {
   const btn = document.getElementById("export-refresh-btn");
   if (btn) { btn.textContent = "Refreshing…"; btn.disabled = true; }
-  try {
-    const data = await loadBin();
-    trades = data;
-    showMsg("success", "Refreshed from saved data.");
-  } catch {
-    showMsg("error", "Refresh failed.");
-  }
+  try { const data = await loadBin(); trades = data; showMsg("success", "Refreshed."); }
+  catch { showMsg("error", "Refresh failed."); }
   render();
+}
+
+function tradeRowHTML(t) {
+  const d = dte(t.expiry);
+  const dteColor = d==null?"var(--faint)":d<=3?"var(--red)":d<=7?"var(--amber)":"var(--faint)";
+  const pnlColor = t.paper?"var(--purple)":(t.pnl||0)>=0?"var(--success)":"var(--danger)";
+  const tickerColor = t.paper?"var(--purple)":"var(--text)";
+  const isExpanded = expandedId === t.id;
+  const isConfirm = confirmDeleteId === t.id;
+
+  const closeLeft = t.status === "OPEN"
+    ? `<button class="close-btn" onclick="event.stopPropagation();closeTarget=trades.find(x=>x.id==='${t.id}');render()">close</button>`
+    : `<span class="close-spacer"></span>`;
+
+  let rightHTML = "";
+  if (t.pnl != null) rightHTML += `<span class="trade-pnl" style="color:${pnlColor}">${fmt$(t.pnl)}${t.paper?" (sim)":""}</span>`;
+  rightHTML += badgeHTML(t.status, t.paper);
+  if (isConfirm) {
+    rightHTML += `<span class="confirm-delete" onclick="event.stopPropagation()"><span class="confirm-label">Delete?</span><button class="btn btn-danger" style="padding:2px 8px;font-size:12px" onclick="handleDelete('${t.id}')">Yes</button><button class="btn" style="padding:2px 8px;font-size:12px" onclick="confirmDeleteId=null;render()">No</button></span>`;
+  } else {
+    rightHTML += `<button class="trash-btn" onclick="event.stopPropagation();confirmDeleteId='${t.id}';render()" title="Delete">${trashSVG()}</button>`;
+  }
+
+  // Mobile: two lines. Desktop: one line.
+  let bodyHTML;
+  if (isMobile) {
+    bodyHTML = `<div class="trade-body">
+      <div class="trade-row-line1">
+        <span class="trade-ticker" style="color:${tickerColor}">${t.ticker}</span>
+        <span class="trade-strike">$${t.strike}</span>
+        <span class="trade-expiry">${shortDate(t.expiry)}</span>
+      </div>
+      <div class="trade-row-line2">
+        ${t.status==="OPEN"&&d!=null?`<span class="trade-dte" style="color:${dteColor}">${d}d</span>`:""}
+        <span class="trade-premium">${fmtP(t.premium)}</span>
+      </div>
+    </div>`;
+  } else {
+    bodyHTML = `<div class="trade-body">
+      <span class="trade-ticker" style="color:${tickerColor}">${t.ticker}</span>
+      <span class="trade-strike">$${t.strike}</span>
+      <span class="trade-expiry">${shortDate(t.expiry)}</span>
+      ${t.status==="OPEN"&&d!=null?`<span class="trade-dte" style="color:${dteColor}">${d}d</span>`:""}
+      <span class="trade-premium">${fmtP(t.premium)}</span>
+    </div>`;
+  }
+
+  let detailHTML = "";
+  if (isExpanded) {
+    detailHTML = `<div class="trade-detail">
+      <span>Premium: ${fmtP(t.premium)}/share</span><span>Contracts: ${t.contracts}</span>
+      <span>Total credit: $${(t.premium*t.contracts*100).toFixed(0)}${t.paper?" (paper)":""}</span>
+      <span>Opened: ${t.openDate}</span>
+      ${t.closeDate?`<span>Closed: ${t.closeDate}</span>`:""}
+      ${t.closePrice!=null&&t.status!=="OPEN"?`<span>Close price: ${fmtP(t.closePrice)}</span>`:""}
+      ${t.status==="ASSIGNED"?`<span class="full" style="color:var(--text);font-weight:500">Effective sale: $${(Number(t.strike)+Number(t.premium)).toFixed(2)}/share</span>`:""}
+      ${t.note?`<span class="full" style="color:var(--faint)">${t.note}</span>`:""}
+    </div>`;
+  }
+
+  return `<div class="trade-row">
+    <div class="trade-row-main${isExpanded?" expanded":""}" onclick="expandedId=expandedId==='${t.id}'?null:'${t.id}';render()">
+      <div class="trade-left">${closeLeft}</div>
+      ${bodyHTML}
+      <div class="trade-right">${rightHTML}</div>
+    </div>
+    ${detailHTML}
+  </div>`;
 }
 
 function render() {
   const app = document.getElementById("app");
-
-  if (loadStatus === "loading") {
-    app.innerHTML = `<div class="screen"><div style="color:var(--muted)">Loading trades…</div></div>`; return;
-  }
-  if (loadStatus === "error") {
-    app.innerHTML = `<div class="screen"><div class="screen-error">Couldn't load trades</div>${loadError?`<div class="screen-sub">${loadError}</div>`:""}<div class="screen-note">Check your connection and try again</div><button class="btn" onclick="attemptLoad()">Retry</button></div>`; return;
-  }
+  if (loadStatus === "loading") { app.innerHTML = `<div class="screen"><div style="color:var(--muted)">Loading trades…</div></div>`; return; }
+  if (loadStatus === "error") { app.innerHTML = `<div class="screen"><div class="screen-error">Couldn't load trades</div>${loadError?`<div class="screen-sub">${loadError}</div>`:""}<div class="screen-note">Check your connection and try again</div><button class="btn" onclick="attemptLoad()">Retry</button></div>`; return; }
 
   const open = trades.filter(t => t.status === "OPEN");
   const closed = trades.filter(t => t.status !== "OPEN");
-  const rOpen = open.filter(t => !t.paper);
-  const pOpen = open.filter(t => t.paper);
-  const rClosed = closed.filter(t => !t.paper);
-  const pClosed = closed.filter(t => t.paper);
+  const rOpen = open.filter(t => !t.paper), pOpen = open.filter(t => t.paper);
+  const rClosed = closed.filter(t => !t.paper), pClosed = closed.filter(t => t.paper);
   const rPrem = rOpen.reduce((s,t) => s+t.premium*t.contracts*100, 0);
   const rPnl = rClosed.reduce((s,t) => s+(t.pnl||0), 0);
   const rWins = rClosed.filter(t => (t.pnl||0)>0).length;
@@ -480,93 +536,34 @@ function render() {
   const applyFilter = arr => filter==="real"?arr.filter(t=>!t.paper):filter==="paper"?arr.filter(t=>t.paper):arr;
   const displayed = applyFilter(tab==="open"?open:closed);
 
-  let rowsHTML = "";
-  if (displayed.length === 0) {
-    rowsHTML = `<div class="empty">No trades here yet.</div>`;
-  } else {
-    for (const t of displayed) {
-      const d = dte(t.expiry);
-      const dteColor = d==null?"var(--faint)":d<=3?"var(--red)":d<=7?"var(--amber)":"var(--faint)";
-      const pnlColor = t.paper?"var(--purple)":(t.pnl||0)>=0?"var(--success)":"var(--danger)";
-      const tickerColor = t.paper?"var(--purple)":"var(--text)";
-      const isExpanded = expandedId === t.id;
-      const isConfirm = confirmDeleteId === t.id;
+  const rowsHTML = displayed.length === 0
+    ? `<div class="empty">No trades here yet.</div>`
+    : displayed.map(tradeRowHTML).join("");
 
-      // Left: close button for open trades only
-      const leftHTML = t.status === "OPEN"
-        ? `<button class="close-btn" onclick="event.stopPropagation();closeTarget=trades.find(x=>x.id==='${t.id}');render()">close</button>`
-        : `<span style="display:inline-block;width:47px"></span>`; // spacer to keep alignment
-
-      // Right: P&L + badges + delete
-      let rightHTML = "";
-      if (t.pnl != null) rightHTML += `<span class="trade-pnl" style="color:${pnlColor}">${fmt$(t.pnl)}${t.paper?" (sim)":""}</span>`;
-      rightHTML += badgeHTML(t.status, t.paper);
-      if (isConfirm) {
-        rightHTML += `<span class="confirm-delete" onclick="event.stopPropagation()"><span class="confirm-label">Delete?</span><button class="btn btn-danger" style="padding:2px 8px;font-size:12px" onclick="handleDelete('${t.id}')">Yes</button><button class="btn" style="padding:2px 8px;font-size:12px" onclick="confirmDeleteId=null;render()">No</button></span>`;
-      } else {
-        rightHTML += `<button class="trash-btn" onclick="event.stopPropagation();confirmDeleteId='${t.id}';render()" title="Delete">${trashSVG()}</button>`;
-      }
-
-      let detailHTML = "";
-      if (isExpanded) {
-        detailHTML = `<div class="trade-detail">
-          <span>Premium: ${fmtP(t.premium)}/share</span><span>Contracts: ${t.contracts}</span>
-          <span>Total credit: $${(t.premium*t.contracts*100).toFixed(0)}${t.paper?" (paper)":""}</span>
-          <span>Opened: ${t.openDate}</span>
-          ${t.closeDate?`<span>Closed: ${t.closeDate}</span>`:""}
-          ${t.closePrice!=null&&t.status!=="OPEN"?`<span>Close price: ${fmtP(t.closePrice)}</span>`:""}
-          ${t.status==="ASSIGNED"?`<span class="full" style="color:var(--text);font-weight:500">Effective sale: $${(Number(t.strike)+Number(t.premium)).toFixed(2)}/share</span>`:""}
-          ${t.note?`<span class="full" style="color:var(--faint)">${t.note}</span>`:""}
-        </div>`;
-      }
-
-      rowsHTML += `<div class="trade-row">
-        <div class="trade-row-main${isExpanded?" expanded":""}" onclick="expandedId=expandedId==='${t.id}'?null:'${t.id}';render()">
-          <div class="trade-left">${leftHTML}</div>
-          <div class="trade-center">
-            <span class="trade-ticker" style="color:${tickerColor}">${t.ticker}</span>
-            <span class="trade-meta">$${t.strike} call</span>
-            <span class="trade-meta">${t.expiry}</span>
-            ${t.status==="OPEN"&&d!=null?`<span class="trade-dte" style="color:${dteColor}">${d}d</span>`:""}
-            <span class="trade-premium">${fmtP(t.premium)}</span>
-          </div>
-          <div class="trade-right">${rightHTML}</div>
-        </div>
-        ${detailHTML}
-      </div>`;
-    }
-  }
-
-  // Export section at bottom
-  let exportHTML = "";
-  if (showExport) {
-    exportHTML = `<div class="export-box">
-      <div class="export-header">
-        <span class="export-label">Export</span>
-        <div class="export-actions">
-          <button class="btn" id="export-refresh-btn" onclick="refreshExport()">↻ Refresh</button>
-          <button class="btn" onclick="downloadTxt()">.txt</button>
-          <button class="btn" onclick="showExport=false;render()">Close</button>
-        </div>
+  const exportHTML = showExport ? `<div class="export-box">
+    <div class="export-header">
+      <span class="export-label">Export</span>
+      <div class="export-actions">
+        <button class="btn" id="export-refresh-btn" onclick="refreshExport()">↻ Refresh</button>
+        <button class="btn" onclick="downloadTxt()">.txt</button>
+        <button class="btn" onclick="showExport=false;render()">Close</button>
       </div>
-      <pre class="export-pre">${exportData()||"No trades yet."}</pre>
-    </div>`;
-  }
+    </div>
+    <pre class="export-pre">${exportData()||"No trades yet."}</pre>
+  </div>` : "";
 
-  // Close modal
-  let closeModalHTML = "";
-  if (closeTarget) {
+  const closeModalHTML = closeTarget ? (() => {
     const t = closeTarget;
-    closeModalHTML = `<div class="modal-overlay">
+    return `<div class="modal-overlay">
       <div class="modal">
         <div class="modal-header">
-          <span class="modal-title">Close ${t.ticker} $${t.strike} · ${t.expiry}</span>
+          <span class="modal-title">Close ${t.ticker} $${t.strike} · ${shortDate(t.expiry)}</span>
           <button class="modal-close" onclick="closeTarget=null;render()">×</button>
         </div>
         <div class="modal-body">
           <div><label class="field-label">Close price (0 = expired worthless)</label><input id="close-price" placeholder="e.g. 0.45" autofocus onkeydown="if(event.key==='Enter')handleCloseConfirm()"/></div>
           <div><label class="field-label">Contracts to close (default: all ${t.contracts})</label><input id="close-contracts" placeholder="1–${t.contracts}"/></div>
-          <div><label class="field-label">Roll over (optional) — STRIKE MM/DD PREMIUM [xN]</label><input id="close-roll" placeholder="${t.strike} ${mmdd(t.expiry)} ${t.premium}"/></div>
+          <div><label class="field-label">Roll over (optional) — STRIKE MM/DD PREMIUM [xN]</label><input id="close-roll" placeholder="${t.strike} ${shortDate(t.expiry)} ${t.premium}"/></div>
           <div id="close-error" style="font-size:12px;color:var(--danger);min-height:16px"></div>
           <div class="modal-actions">
             <button class="btn" onclick="closeTarget=null;render()">Cancel</button>
@@ -575,20 +572,16 @@ function render() {
         </div>
       </div>
     </div>`;
-  }
+  })() : "";
 
-  // Expiry modal
-  let expiryModalHTML = "";
-  if (expiredQueue.length > 0 && expiredIdx < expiredQueue.length) {
+  const expiryModalHTML = (expiredQueue.length > 0 && expiredIdx < expiredQueue.length) ? (() => {
     const t = expiredQueue[expiredIdx];
-    expiryModalHTML = `<div class="modal-overlay">
+    return `<div class="modal-overlay">
       <div class="modal">
-        <div class="modal-header">
-          <span class="modal-title">Expired position ${expiredIdx+1} of ${expiredQueue.length}</span>
-        </div>
+        <div class="modal-header"><span class="modal-title">Expired ${expiredIdx+1} of ${expiredQueue.length}</span></div>
         <div class="modal-body">
-          <div style="font-size:14px"><span style="font-weight:500;color:${t.paper?"var(--purple)":"var(--text)"}">${t.ticker}</span> <span style="color:var(--muted)">$${t.strike} · ${t.expiry}${t.paper?" (paper)":""}</span></div>
-          <div style="font-size:12px;color:var(--amber)">Expired ${t.expiry} — how did it close?</div>
+          <div style="font-size:14px"><span style="font-weight:500;color:${t.paper?"var(--purple)":"var(--text)"}">${t.ticker}</span> <span style="color:var(--muted)">$${t.strike} · ${shortDate(t.expiry)}${t.paper?" (paper)":""}</span></div>
+          <div style="font-size:12px;color:var(--amber)">Expired ${shortDate(t.expiry)} — how did it close?</div>
           <div><label class="field-label">Close price</label><input id="expiry-price" placeholder="0 or amount" autofocus onkeydown="if(event.key==='Enter')handleExpiryConfirm(false)"/></div>
           <div id="expiry-error" style="font-size:12px;color:var(--danger);min-height:16px"></div>
           <div class="modal-actions">
@@ -598,43 +591,34 @@ function render() {
         </div>
       </div>
     </div>`;
-  }
+  })() : "";
 
   const syncText = saving?"⟳ Saving…":saveError?"⚠ Save failed":"✓ Synced";
-  const logBtnText = batchStatus || (saving ? "Saving…" : "Log");
+  const logBtnText = batchStatus||(saving?"Saving…":"Log");
 
   app.innerHTML = `
-    ${closeModalHTML}
-    ${expiryModalHTML}
-
+    ${closeModalHTML}${expiryModalHTML}
     <div class="header">
       <span class="header-title">Covered Calls</span>
-      <div class="header-right">
-        <span class="sync-status${saving?" saving":saveError?" error":""}">${syncText}</span>
-      </div>
+      <span class="sync-status${saving?" saving":saveError?" error":""}">${syncText}</span>
     </div>
-
     <div class="input-row">
-      <input id="trade-input" placeholder="TICKER STRIKE MM/DD PREMIUM [xN] [paper] — or CLOSE TICKER STRIKE MM/DD PRICE" onkeydown="if(event.key==='Enter')handleLog()"/>
+      <input id="trade-input" placeholder="TICKER STRIKE MM/DD PREMIUM [xN] [paper]  or  CLOSE TICKER STRIKE MM/DD PRICE" onkeydown="if(event.key==='Enter')handleLog()"/>
       <button class="btn" onclick="handleLog()" ${saving||batchStatus?"disabled":""}>${logBtnText}</button>
     </div>
-
     ${msg?`<div class="msg ${msg.type}">${msg.text}</div>`:""}
-
     <div class="stats-grid" style="margin-bottom:${hasPaper?8:20}px">
       <div class="stat-card"><div class="stat-label">Open (real)</div><div class="stat-val">${rOpen.length}</div></div>
       <div class="stat-card"><div class="stat-label">Premium at risk</div><div class="stat-val">$${rPrem.toFixed(0)}</div></div>
       <div class="stat-card"><div class="stat-label">Realized P&L</div><div class="stat-val" style="color:${rPnl>=0?"var(--success)":"var(--danger)"}">${fmt$(rPnl)}</div></div>
       <div class="stat-card"><div class="stat-label">Win rate</div><div class="stat-val">${rWR!=null?rWR+"%":"—"}</div></div>
     </div>
-
     ${hasPaper?`<div class="paper-stats">
       <div><div class="paper-stat-label">Paper open</div><div class="paper-stat-val">${pOpen.length}</div></div>
       <div><div class="paper-stat-label">Paper premium</div><div class="paper-stat-val">$${pPrem.toFixed(0)}</div></div>
       <div><div class="paper-stat-label">Paper P&L</div><div class="paper-stat-val" style="color:${pPnl>=0?"var(--purple)":"var(--danger)"}">${fmt$(pPnl)}</div></div>
       <div><div class="paper-stat-label">Paper win rate</div><div class="paper-stat-val">${pWR!=null?pWR+"%":"—"}</div></div>
     </div>`:""}
-
     <div class="tabs-row">
       <div class="tabs">
         <button class="tab-btn${tab==="open"?" active":""}" onclick="tab='open';render()">Open · ${open.length}</button>
@@ -646,18 +630,13 @@ function render() {
         <button class="filter-btn${filter==="paper"?" active":""}" onclick="filter='paper';render()">Paper</button>
       </div>
     </div>
-
     <div class="trade-list">${rowsHTML}</div>
-
     <div class="hint">
       Open: <span class="hint-eg">MRVL 185c 06/18 9.11 x2</span> · <span class="hint-eg">ASTS 30 05/23 0.85 paper</span><br/>
       Close: <span class="hint-eg">CLOSE MRVL 185 06/18 0.45</span> · Batch: comma-separate multiple
     </div>
-
     <div class="export-section">
-      <button class="export-toggle" onclick="showExport=!showExport;render()">
-        ${showExport ? "▾" : "▸"} Export
-      </button>
+      <button class="export-toggle" onclick="showExport=!showExport;render()">${showExport?"▾":"▸"} Export</button>
       ${exportHTML}
     </div>
   `;
@@ -666,11 +645,7 @@ function render() {
 function attemptLoad() {
   loadStatus = "loading"; loadError = null; render();
   loadBin()
-    .then(data => {
-      trades = data; loadStatus = "ok";
-      expiredQueue = data.filter(isExpiredTrade); expiredIdx = 0;
-      render();
-    })
+    .then(data => { trades = data; loadStatus = "ok"; expiredQueue = data.filter(isExpiredTrade); expiredIdx = 0; render(); })
     .catch(e => { loadStatus = "error"; loadError = e.message; render(); });
 }
 
