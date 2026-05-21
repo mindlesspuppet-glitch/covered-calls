@@ -20,7 +20,7 @@
   }
   body { background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, sans-serif; min-height: 100vh; padding: 1rem; }
   #app { max-width: 700px; margin: 0 auto; }
-  input, button { font-family: inherit; }
+  input, button, textarea { font-family: inherit; }
   input { background: var(--surface); border: 0.5px solid var(--border-mid); border-radius: 8px; padding: 8px 12px; color: var(--text); font-size: 13px; outline: none; width: 100%; }
   input:focus { border-color: rgba(255,255,255,0.3); }
   input::placeholder { color: var(--faint); }
@@ -30,6 +30,8 @@
   .btn:disabled { opacity: 0.4; cursor: default; }
   .btn-green { background: var(--green-bg); border-color: var(--green); color: var(--green); }
   .btn-danger { background: var(--danger-bg); border-color: var(--danger); color: var(--danger); }
+  .btn-icon { background: none; border: none; color: var(--faint); padding: 2px 4px; border-radius: 4px; display: flex; align-items: center; }
+  .btn-icon:hover { color: var(--muted); }
 
   .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
   .header-title { font-size: 14px; font-weight: 500; }
@@ -69,10 +71,8 @@
   .trade-row-inner { padding: 10px 12px; cursor: pointer; }
   .trade-row-inner:hover, .trade-row-inner.expanded { background: var(--surface-hover); }
 
-  /* Desktop: everything in one flex row */
   .trade-line1 { display: flex; align-items: center; gap: 8px; }
   .trade-line2 { display: none; }
-
   .trade-ticker { font-weight: 500; font-size: 15px; white-space: nowrap; }
   .trade-strike { font-size: 14px; color: var(--muted); white-space: nowrap; }
   .trade-expiry { font-size: 14px; color: var(--muted); white-space: nowrap; }
@@ -80,6 +80,19 @@
   .trade-premium { font-size: 14px; color: var(--text); white-space: nowrap; }
   .trade-pnl { font-size: 14px; font-weight: 500; white-space: nowrap; }
   .trade-spacer { flex: 1; }
+
+  .trade-detail { margin: 6px 0 4px; padding-top: 10px; border-top: 0.5px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; gap: 5px 20px; font-size: 13px; color: var(--muted); }
+  .trade-detail .full { grid-column: 1 / -1; }
+  .detail-highlight { color: var(--text); font-weight: 500; }
+
+  .note-row { grid-column: 1/-1; margin-top: 4px; }
+  .note-add-btn { background: none; border: 0.5px solid var(--border-mid); border-radius: 4px; padding: 2px 8px; color: var(--faint); font-size: 11px; }
+  .note-add-btn:hover { color: var(--muted); }
+  .note-input { background: var(--bg); border: 0.5px solid var(--border-mid); border-radius: 6px; padding: 6px 10px; color: var(--text); font-size: 12px; width: 100%; resize: none; outline: none; line-height: 1.5; }
+  .note-input:focus { border-color: rgba(255,255,255,0.3); }
+  .note-input::placeholder { color: var(--faint); }
+  .note-save-btn { margin-top: 5px; background: none; border: 0.5px solid var(--border-mid); border-radius: 4px; padding: 2px 10px; color: var(--muted); font-size: 11px; }
+  .note-save-btn:hover { color: var(--text); }
 
   .badge { font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 4px; white-space: nowrap; }
   .badge-paper { background: var(--purple-bg); color: var(--purple); border: 0.5px solid var(--purple-border); font-size: 11px; font-weight: 500; padding: 2px 7px; border-radius: 4px; white-space: nowrap; }
@@ -90,15 +103,12 @@
 
   .close-btn { background: none; border: 0.5px solid var(--border-mid); border-radius: 4px; padding: 2px 8px; color: var(--muted); font-size: 11px; white-space: nowrap; }
   .close-btn:hover { border-color: var(--amber); color: var(--amber); }
-
   .trash-btn { background: none; border: none; color: var(--faint); padding: 2px 4px; border-radius: 4px; display: flex; align-items: center; }
   .trash-btn:hover { color: var(--danger); }
-
+  .edit-btn { background: none; border: none; color: var(--faint); padding: 2px 4px; border-radius: 4px; display: flex; align-items: center; }
+  .edit-btn:hover { color: var(--blue); }
   .confirm-delete { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; }
   .confirm-label { color: var(--muted); white-space: nowrap; }
-
-  .trade-detail { margin: 6px 0 2px; padding-top: 10px; border-top: 0.5px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; gap: 4px 20px; font-size: 13px; color: var(--muted); }
-  .trade-detail .full { grid-column: 1 / -1; }
 
   .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); display: flex; align-items: center; justify-content: center; z-index: 100; padding: 20px; }
   .modal { background: var(--surface); border: 0.5px solid var(--border-mid); border-radius: 12px; padding: 1.5rem; width: 100%; max-width: 420px; }
@@ -108,6 +118,9 @@
   .modal-body { display: flex; flex-direction: column; gap: 12px; }
   .field-label { font-size: 12px; color: var(--muted); display: block; margin-bottom: 4px; }
   .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 4px; }
+
+  .paper-toggle { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+  .paper-toggle input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--purple); cursor: pointer; }
 
   .export-section { margin-top: 16px; border-top: 0.5px solid var(--border); padding-top: 14px; }
   .export-toggle { background: none; border: none; color: var(--faint); font-size: 12px; padding: 0; display: flex; align-items: center; gap: 5px; }
@@ -119,6 +132,7 @@
   .export-pre { font-family: monospace; font-size: 12px; background: var(--bg); border: 0.5px solid var(--border); border-radius: 8px; padding: 10px 12px; color: var(--text); white-space: pre-wrap; line-height: 1.8; }
 
   .hint { font-size: 12px; color: var(--faint); line-height: 1.8; margin-bottom: 4px; }
+  .hint-label { font-size: 11px; color: var(--muted); font-weight: 500; display: block; margin-bottom: 2px; }
   .hint-eg { color: var(--muted); }
 
   .screen { min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; padding: 3rem; }
@@ -126,23 +140,16 @@
   .screen-sub { color: var(--faint); font-size: 12px; font-family: monospace; }
   .screen-note { color: var(--faint); font-size: 12px; }
 
-  /* Mobile */
   @media (max-width: 520px) {
     .stats-grid { grid-template-columns: 1fr 1fr; }
     .paper-stats { grid-template-columns: 1fr 1fr; }
     .trade-detail { grid-template-columns: 1fr; }
-
-    /* Line 1: ticker strike date dte premium trash — no close/badges */
     .trade-line1 { gap: 6px; }
-    /* Line 2: close + badges — shown below */
     .trade-line2 { display: flex; align-items: center; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
-    /* Hide close btn and badges from line 1 on mobile */
     .line1-close { display: none; }
     .line1-badges { display: none; }
     .line1-pnl { display: none; }
   }
-
-  /* Desktop: hide line2 elements */
   @media (min-width: 521px) {
     .trade-line2 { display: none; }
   }
@@ -164,8 +171,11 @@ let msg = null;
 let tab = "open";
 let filter = "all";
 let expandedId = null;
+let showNoteId = null;
 let showExport = false;
 let closeTarget = null;
+let editTarget = null;   // trade being edited
+let showAddModal = false;
 let expiredQueue = [];
 let expiredIdx = 0;
 let confirmDeleteId = null;
@@ -255,11 +265,19 @@ function parseTrade(raw) {
 const pad = n => String(n).padStart(2, "0");
 const today = () => new Date().toISOString().slice(0, 10);
 const dte = exp => { if (!exp) return null; const now = new Date(); now.setHours(0,0,0,0); return Math.round((new Date(exp+"T00:00:00") - now) / 86400000); };
+const daysHeld = (openDate, closeDate) => { if (!openDate) return null; const end = closeDate || today(); const diff = Math.round((new Date(end) - new Date(openDate)) / 86400000); return diff >= 0 ? diff : null; };
 const isExpiredTrade = t => t.status === "OPEN" && dte(t.expiry) !== null && dte(t.expiry) < 0;
 const fmt$ = n => n == null || isNaN(n) ? "—" : (n >= 0 ? "+" : "-") + "$" + Math.abs(n).toFixed(0);
 const fmtP = n => n == null || isNaN(n) ? "—" : "$" + Number(n).toFixed(2);
 const shortDate = s => s ? s.slice(5).replace("-", "/") : "";
 const mmdd = shortDate;
+const dteColor = d => d == null ? "var(--faint)" : d <= 5 ? "var(--red)" : d <= 14 ? "var(--amber)" : "var(--faint)";
+
+function sortedOpen(arr) {
+  const real = arr.filter(t => !t.paper).sort((a,b) => (a.expiry||"").localeCompare(b.expiry||""));
+  const paper = arr.filter(t => t.paper).sort((a,b) => (a.expiry||"").localeCompare(b.expiry||""));
+  return [...real, ...paper];
+}
 
 function badgeHTML(status, paper) {
   const map = { OPEN: "open", EXPIRED: "expired", "BOUGHT BACK": "boughtback", ASSIGNED: "assigned" };
@@ -273,6 +291,10 @@ function showMsg(type, text) {
 
 function trashSVG() {
   return `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>`;
+}
+
+function editSVG() {
+  return `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`;
 }
 
 function exportData() {
@@ -294,6 +316,50 @@ async function persist(next) {
   saving = false; render(); return next;
 }
 
+// ── Add/Edit modal submit ────────────────────────────────────────────────────
+function getModalFields(prefix) {
+  const ticker = document.getElementById(`${prefix}-ticker`)?.value?.trim().toUpperCase();
+  const strikeRaw = document.getElementById(`${prefix}-strike`)?.value?.trim().replace(/[$c@]/gi,"");
+  const strike = parseFloat(strikeRaw);
+  const dateRaw = document.getElementById(`${prefix}-date`)?.value?.trim();
+  const expiry = dateRaw ? parseExpiry(dateRaw) : null;
+  const premium = parseFloat(document.getElementById(`${prefix}-premium`)?.value?.trim());
+  const contracts = parseInt(document.getElementById(`${prefix}-contracts`)?.value?.trim()) || 1;
+  const paper = document.getElementById(`${prefix}-paper`)?.checked || false;
+  return { ticker, strike, expiry, premium, contracts, paper };
+}
+
+function validateModalFields(fields, errId) {
+  const { ticker, strike, expiry, premium, contracts } = fields;
+  if (!ticker) { document.getElementById(errId).textContent = "Ticker required"; return false; }
+  if (isNaN(strike) || strike <= 0) { document.getElementById(errId).textContent = "Invalid strike"; return false; }
+  if (!expiry) { document.getElementById(errId).textContent = "Invalid date — use MM/DD or MM/DD/YYYY"; return false; }
+  if (isNaN(premium) || premium < 0) { document.getElementById(errId).textContent = "Invalid premium"; return false; }
+  if (isNaN(contracts) || contracts < 1) { document.getElementById(errId).textContent = "Invalid contracts"; return false; }
+  return true;
+}
+
+async function handleAddConfirm() {
+  const fields = getModalFields("add");
+  if (!validateModalFields(fields, "add-error")) return;
+  const t = { id: String(Date.now()), ticker: fields.ticker, strike: fields.strike, expiry: fields.expiry, premium: fields.premium, contracts: fields.contracts, paper: fields.paper, status: "OPEN", openDate: today(), closePrice: null, pnl: null, note: "" };
+  showAddModal = false;
+  await persist([t, ...trades]);
+  showMsg("success", `Logged: ${t.ticker} $${t.strike} · ${shortDate(t.expiry)} · ${fmtP(t.premium)}${t.paper?" (paper)":""}`);
+  tab = "open";
+}
+
+async function handleEditConfirm() {
+  const t = editTarget; if (!t) return;
+  const fields = getModalFields("edit");
+  if (!validateModalFields(fields, "edit-error")) return;
+  const updated = { ...t, ticker: fields.ticker, strike: fields.strike, expiry: fields.expiry, premium: fields.premium, contracts: fields.contracts, paper: fields.paper };
+  editTarget = null;
+  await persist(trades.map(x => x.id === t.id ? updated : x));
+  showMsg("success", `Updated: ${updated.ticker} $${updated.strike} · ${shortDate(updated.expiry)}`);
+}
+
+// ── Log line ─────────────────────────────────────────────────────────────────
 async function handleLog() {
   const raw = document.getElementById("trade-input")?.value?.trim();
   if (!raw) return;
@@ -338,7 +404,7 @@ async function processSingle(raw) {
     const src = /^OPEN$/i.test(tokens[0]) ? tokens.slice(1).join(" ") : raw;
     const result = parseTrade(src);
     if (result.error) { showMsg("error", result.error); return; }
-    const t = makeTrade(result);
+    const t = { id: String(Date.now()), ticker: result.ticker, strike: result.strike, expiry: result.expiry, premium: result.premium, contracts: result.contracts, paper: result.paper, status: "OPEN", openDate: today(), closePrice: null, pnl: null, note: "" };
     await persist([t, ...trades]);
     showMsg("success", `Logged: ${t.ticker} $${t.strike} · ${shortDate(t.expiry)} · ${fmtP(t.premium)}${t.paper?" (paper)":""}`);
     tab = "open"; render();
@@ -358,12 +424,9 @@ function processPart(raw, currentTrades) {
     const src = /^OPEN$/i.test(tokens[0]) ? tokens.slice(1).join(" ") : raw;
     const result = parseTrade(src);
     if (result.error) return { error: result.error };
-    return { trades: [makeTrade(result, Date.now() + Math.random()), ...currentTrades], type: "add" };
+    const t = { id: String(Date.now() + Math.random()), ticker: result.ticker, strike: result.strike, expiry: result.expiry, premium: result.premium, contracts: result.contracts, paper: result.paper, status: "OPEN", openDate: today(), closePrice: null, pnl: null, note: "" };
+    return { trades: [t, ...currentTrades], type: "add" };
   }
-}
-
-function makeTrade(result, idOffset) {
-  return { id: String(Date.now() + (idOffset||0)), ticker: result.ticker, strike: result.strike, expiry: result.expiry, premium: result.premium, contracts: result.contracts, paper: result.paper, status: "OPEN", openDate: today(), closePrice: null, pnl: null, note: "" };
 }
 
 async function handleDelete(id) {
@@ -371,6 +434,14 @@ async function handleDelete(id) {
   if (expandedId === id) expandedId = null;
   confirmDeleteId = null;
   await persist(next); showMsg("success", "Deleted.");
+}
+
+async function saveNote(id) {
+  const val = document.getElementById(`note-input-${id}`)?.value || "";
+  const next = trades.map(t => t.id === id ? { ...t, note: val } : t);
+  showNoteId = null;
+  await persist(next);
+  showMsg("success", "Note saved.");
 }
 
 function handleCloseConfirm() {
@@ -393,7 +464,7 @@ function handleCloseConfirm() {
   }
   if (roll) {
     const rc = roll.contracts || closingC;
-    next = [{ id: String(Date.now()+1), ticker: t.ticker, strike: roll.strike, expiry: roll.expiry, premium: roll.premium, contracts: rc, paper: t.paper, status: "OPEN", openDate: today(), closePrice: null, pnl: null, note: `rolled from $${t.strike} ${shortDate(t.expiry)}` }, ...next];
+    next = [{ id: String(Date.now()+1), ticker: t.ticker, strike: roll.strike, expiry: roll.expiry, premium: roll.premium, contracts: rc, paper: t.paper, status: "OPEN", openDate: today(), closePrice: null, pnl: null, note: "" }, ...next];
   }
   persist(next);
   showMsg("success", `Closed ${t.ticker}${roll?` · rolled to $${roll.strike} ${shortDate(roll.expiry)}`:""} · P&L: ${fmt$(pnl)}`);
@@ -428,33 +499,81 @@ async function refreshExport() {
   render();
 }
 
+// ── Trade/Add/Edit modal HTML builders ───────────────────────────────────────
+function entryModalHTML(prefix, title, t, onConfirm, onCancel) {
+  const val = (field, fallback="") => t ? (t[field] != null ? t[field] : fallback) : fallback;
+  const dateVal = t?.expiry ? shortDate(t.expiry) : "";
+  return `<div class="modal-overlay"><div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">${title}</span>
+      <button class="modal-close" onclick="${onCancel}">×</button>
+    </div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div><label class="field-label">Ticker</label><input id="${prefix}-ticker" placeholder="MRVL" value="${val("ticker")}" style="text-transform:uppercase"/></div>
+        <div><label class="field-label">Strike</label><input id="${prefix}-strike" placeholder="185" value="${val("strike")}"/></div>
+        <div><label class="field-label">Expiry (MM/DD or MM/DD/YYYY)</label><input id="${prefix}-date" placeholder="06/18" value="${dateVal}"/></div>
+        <div><label class="field-label">Premium</label><input id="${prefix}-premium" placeholder="9.11" value="${val("premium")}"/></div>
+        <div><label class="field-label">Contracts</label><input id="${prefix}-contracts" placeholder="1" value="${val("contracts", 1)}" type="number" min="1"/></div>
+        <div style="display:flex;align-items:flex-end;padding-bottom:2px">
+          <label class="paper-toggle"><input type="checkbox" id="${prefix}-paper" ${val("paper") ? "checked" : ""}/> Paper trade</label>
+        </div>
+      </div>
+      <div id="${prefix}-error" style="font-size:12px;color:var(--danger);min-height:16px"></div>
+      <div class="modal-actions">
+        <button class="btn" onclick="${onCancel}">Cancel</button>
+        <button class="btn btn-green" onclick="${onConfirm}">Confirm</button>
+      </div>
+    </div>
+  </div></div>`;
+}
+
 function tradeRowHTML(t) {
   const d = dte(t.expiry);
-  const dteColor = d==null?"var(--faint)":d<=3?"var(--red)":d<=7?"var(--amber)":"var(--faint)";
-  const pnlColor = t.paper?"var(--purple)":(t.pnl||0)>=0?"var(--success)":"var(--danger)";
-  const tickerColor = t.paper?"var(--purple)":"var(--text)";
+  const dc = dteColor(d);
+  const pnlColor = t.paper ? "var(--purple)" : (t.pnl||0) >= 0 ? "var(--success)" : "var(--danger)";
+  const tickerColor = t.paper ? "var(--purple)" : "var(--text)";
   const isExpanded = expandedId === t.id;
   const isConfirm = confirmDeleteId === t.id;
-  const dteHTML = t.status==="OPEN"&&d!=null?`<span class="trade-dte" style="color:${dteColor}">${d}d</span>`:"";
-  const pnlHTML = t.pnl!=null?`<span class="trade-pnl" style="color:${pnlColor}">${fmt$(t.pnl)}${t.paper?" (sim)":""}</span>`:"";
-  const closeHTML = t.status==="OPEN"?`<button class="close-btn" onclick="event.stopPropagation();closeTarget=trades.find(x=>x.id==='${t.id}');render()">close</button>`:"";
-  const trashHTML = isConfirm
+  const showNote = showNoteId === t.id;
+  const dteHTML = t.status === "OPEN" && d != null ? `<span class="trade-dte" style="color:${dc}">${d}d</span>` : "";
+  const pnlHTML = t.pnl != null ? `<span class="trade-pnl" style="color:${pnlColor}">${fmt$(t.pnl)}${t.paper?" (sim)":""}</span>` : "";
+  const closeHTML = t.status === "OPEN" ? `<button class="close-btn" onclick="event.stopPropagation();closeTarget=trades.find(x=>x.id==='${t.id}');render()">close</button>` : "";
+
+  const actionBtns = isConfirm
     ? `<span class="confirm-delete" onclick="event.stopPropagation()"><span class="confirm-label">Delete?</span><button class="btn btn-danger" style="padding:2px 8px;font-size:12px" onclick="handleDelete('${t.id}')">Yes</button><button class="btn" style="padding:2px 8px;font-size:12px" onclick="confirmDeleteId=null;render()">No</button></span>`
-    : `<button class="trash-btn" onclick="event.stopPropagation();confirmDeleteId='${t.id}';render()" title="Delete">${trashSVG()}</button>`;
+    : `<button class="edit-btn" onclick="event.stopPropagation();editTarget=trades.find(x=>x.id==='${t.id}');render()" title="Edit">${editSVG()}</button><button class="trash-btn" onclick="event.stopPropagation();confirmDeleteId='${t.id}';render()" title="Delete">${trashSVG()}</button>`;
+
+  const breakeven = (Number(t.strike) + Number(t.premium)).toFixed(2);
+  const held = daysHeld(t.openDate, t.closeDate);
+
+  let noteHTML = "";
+  if (showNote) {
+    noteHTML = `<div class="note-row" onclick="event.stopPropagation()">
+      <textarea id="note-input-${t.id}" class="note-input" rows="2" placeholder="Add a note…">${t.note||""}</textarea>
+      <button class="note-save-btn" onclick="event.stopPropagation();saveNote('${t.id}')">Save</button>
+    </div>`;
+  } else if (t.note) {
+    noteHTML = `<div class="full" style="color:var(--faint);font-size:12px">${t.note} <button class="note-add-btn" onclick="event.stopPropagation();showNoteId='${t.id}';render()" style="margin-left:6px">edit</button></div>`;
+  } else {
+    noteHTML = `<div class="note-row"><button class="note-add-btn" onclick="event.stopPropagation();showNoteId='${t.id}';render()">+ add note</button></div>`;
+  }
 
   const detailHTML = isExpanded ? `<div class="trade-detail">
-    <span>Premium: ${fmtP(t.premium)}/share</span><span>Contracts: ${t.contracts}</span>
-    <span>Total credit: $${(t.premium*t.contracts*100).toFixed(0)}${t.paper?" (paper)":""}</span>
+    <span>Premium: ${fmtP(t.premium)}</span>
+    <span>Contracts: ${t.contracts}</span>
+    <span>Total credit: $${(t.premium * t.contracts * 100).toFixed(0)}${t.paper?" (paper)":""}</span>
     <span>Opened: ${t.openDate}</span>
-    ${t.closeDate?`<span>Closed: ${t.closeDate}</span>`:""}
-    ${t.closePrice!=null&&t.status!=="OPEN"?`<span>Close price: ${fmtP(t.closePrice)}</span>`:""}
-    ${t.status==="ASSIGNED"?`<span class="full" style="color:var(--text);font-weight:500">Effective sale: $${(Number(t.strike)+Number(t.premium)).toFixed(2)}/share</span>`:""}
-    ${t.note?`<span class="full" style="color:var(--faint)">${t.note}</span>`:""}
+    ${t.closeDate ? `<span>Closed: ${t.closeDate}</span>` : ""}
+    ${held != null ? `<span>Days held: ${held}</span>` : ""}
+    ${t.closePrice != null && t.status !== "OPEN" ? `<span>Close price: ${fmtP(t.closePrice)}</span>` : ""}
+    <span class="full detail-highlight">Breakeven: $${breakeven}</span>
+    ${t.status === "ASSIGNED" ? `<span class="full detail-highlight">Effective sale: $${breakeven}</span>` : ""}
+    ${noteHTML}
   </div>` : "";
 
   return `<div class="trade-row">
-    <div class="trade-row-inner${isExpanded?" expanded":""}" onclick="expandedId=expandedId==='${t.id}'?null:'${t.id}';render()">
-      <!-- Line 1: always shown. On desktop includes everything. On mobile just data+trash. -->
+    <div class="trade-row-inner${isExpanded?" expanded":""}" onclick="expandedId=expandedId==='${t.id}'?null:'${t.id}';if(showNoteId&&showNoteId!=='${t.id}')showNoteId=null;render()">
       <div class="trade-line1">
         <span class="trade-ticker" style="color:${tickerColor}">${t.ticker}</span>
         <span class="trade-strike">$${t.strike}</span>
@@ -462,13 +581,11 @@ function tradeRowHTML(t) {
         ${dteHTML}
         <span class="trade-premium">${fmtP(t.premium)}</span>
         <span class="trade-spacer"></span>
-        <!-- Desktop only: pnl, close, badges, trash all on line 1 -->
         <span class="line1-pnl">${pnlHTML}</span>
         <span class="line1-close">${closeHTML}</span>
         <span class="line1-badges">${badgeHTML(t.status, t.paper)}</span>
-        ${trashHTML}
+        ${actionBtns}
       </div>
-      <!-- Line 2: mobile only — close button + badges + pnl -->
       <div class="trade-line2">
         ${closeHTML}
         ${pnlHTML}
@@ -484,7 +601,7 @@ function render() {
   if (loadStatus === "loading") { app.innerHTML = `<div class="screen"><div style="color:var(--muted)">Loading trades…</div></div>`; return; }
   if (loadStatus === "error") { app.innerHTML = `<div class="screen"><div class="screen-error">Couldn't load trades</div>${loadError?`<div class="screen-sub">${loadError}</div>`:""}<div class="screen-note">Check your connection and try again</div><button class="btn" onclick="attemptLoad()">Retry</button></div>`; return; }
 
-  const open = trades.filter(t => t.status === "OPEN");
+  const open = sortedOpen(trades.filter(t => t.status === "OPEN"));
   const closed = trades.filter(t => t.status !== "OPEN");
   const rOpen = open.filter(t => !t.paper), pOpen = open.filter(t => t.paper);
   const rClosed = closed.filter(t => !t.paper), pClosed = closed.filter(t => t.paper);
@@ -497,9 +614,10 @@ function render() {
   const pWins = pClosed.filter(t => (t.pnl||0)>0).length;
   const pWR = pClosed.length ? Math.round(pWins/pClosed.length*100) : null;
   const hasPaper = pOpen.length > 0 || pClosed.length > 0;
+
   const applyFilter = arr => filter==="real"?arr.filter(t=>!t.paper):filter==="paper"?arr.filter(t=>t.paper):arr;
-  const displayed = applyFilter(tab==="open"?open:closed);
-  const rowsHTML = displayed.length===0 ? `<div class="empty">No trades here yet.</div>` : displayed.map(tradeRowHTML).join("");
+  const displayed = applyFilter(tab==="open" ? open : closed);
+  const rowsHTML = displayed.length === 0 ? `<div class="empty">No trades here yet.</div>` : displayed.map(tradeRowHTML).join("");
 
   const exportHTML = showExport ? `<div class="export-box">
     <div class="export-header">
@@ -512,6 +630,14 @@ function render() {
     </div>
     <pre class="export-pre">${exportData()||"No trades yet."}</pre>
   </div>` : "";
+
+  const addModalHTML = showAddModal
+    ? entryModalHTML("add", "Add trade", null, "handleAddConfirm()", "showAddModal=false;render()")
+    : "";
+
+  const editModalHTML = editTarget
+    ? entryModalHTML("edit", `Edit ${editTarget.ticker} $${editTarget.strike}`, editTarget, "handleEditConfirm()", "editTarget=null;render()")
+    : "";
 
   const closeModalHTML = closeTarget ? (() => { const t = closeTarget; return `<div class="modal-overlay"><div class="modal">
     <div class="modal-header"><span class="modal-title">Close ${t.ticker} $${t.strike} · ${shortDate(t.expiry)}</span><button class="modal-close" onclick="closeTarget=null;render()">×</button></div>
@@ -538,13 +664,14 @@ function render() {
   const syncText = saving?"⟳ Saving…":saveError?"⚠ Save failed":"✓ Synced";
 
   app.innerHTML = `
-    ${closeModalHTML}${expiryModalHTML}
+    ${addModalHTML}${editModalHTML}${closeModalHTML}${expiryModalHTML}
     <div class="header">
       <span class="header-title">Covered Calls</span>
       <span class="sync-status${saving?" saving":saveError?" error":""}">${syncText}</span>
     </div>
     <div class="input-row">
       <input id="trade-input" placeholder="TICKER STRIKE MM/DD PREMIUM [xN] [paper]  or  CLOSE TICKER STRIKE MM/DD PRICE" onkeydown="if(event.key==='Enter')handleLog()"/>
+      <button class="btn" onclick="showAddModal=true;render()" style="white-space:nowrap">+ Add</button>
       <button class="btn" onclick="handleLog()" ${saving||batchStatus?"disabled":""}>${batchStatus||(saving?"Saving…":"Log")}</button>
     </div>
     ${msg?`<div class="msg ${msg.type}">${msg.text}</div>`:""}
@@ -573,6 +700,7 @@ function render() {
     </div>
     <div class="trade-list">${rowsHTML}</div>
     <div class="hint">
+      <span class="hint-label">Example format (not real trades)</span>
       Open: <span class="hint-eg">MRVL 185c 06/18 9.11 x2</span> · <span class="hint-eg">ASTS 30 05/23 0.85 paper</span><br/>
       Close: <span class="hint-eg">CLOSE MRVL 185 06/18 0.45</span> · Batch: comma-separate multiple
     </div>
